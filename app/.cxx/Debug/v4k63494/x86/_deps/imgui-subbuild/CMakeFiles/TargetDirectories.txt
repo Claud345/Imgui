@@ -1,0 +1,3 @@
+C:/Users/lm_corr/IdeaProjects/hello/app/.cxx/Debug/v4k63494/x86/_deps/imgui-subbuild/CMakeFiles/imgui-populate.dir
+C:/Users/lm_corr/IdeaProjects/hello/app/.cxx/Debug/v4k63494/x86/_deps/imgui-subbuild/CMakeFiles/edit_cache.dir
+C:/Users/lm_corr/IdeaProjects/hello/app/.cxx/Debug/v4k63494/x86/_deps/imgui-subbuild/CMakeFiles/rebuild_cache.dir

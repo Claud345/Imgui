@@ -1,0 +1,21 @@
+# ninja log v5
+1	458	8011289836439947	imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-mkdir	b9e5eaf65ebc5684
+1	458	8011289836439947	C:/Users/lm_corr/IdeaProjects/hello/app/.cxx/Debug/v4k63494/armeabi-v7a/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-mkdir	b9e5eaf65ebc5684
+459	24980	8011290081756249	imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-download	a368d42b5415d7fb
+459	24980	8011290081756249	C:/Users/lm_corr/IdeaProjects/hello/app/.cxx/Debug/v4k63494/armeabi-v7a/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-download	a368d42b5415d7fb
+24981	25271	0	imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-update	3f8ab98ac7efbd63
+24981	25271	0	C:/Users/lm_corr/IdeaProjects/hello/app/.cxx/Debug/v4k63494/armeabi-v7a/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-update	3f8ab98ac7efbd63
+25271	25387	8011290085817535	imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-patch	25f01a17986af8fd
+25271	25387	8011290085817535	C:/Users/lm_corr/IdeaProjects/hello/app/.cxx/Debug/v4k63494/armeabi-v7a/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-patch	25f01a17986af8fd
+25388	25500	8011290086956744	imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-configure	1ec1f18a57fe2d33
+25388	25500	8011290086956744	C:/Users/lm_corr/IdeaProjects/hello/app/.cxx/Debug/v4k63494/armeabi-v7a/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-configure	1ec1f18a57fe2d33
+25500	25609	8011290088070304	imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-build	b63736a696d1e97c
+25500	25609	8011290088070304	C:/Users/lm_corr/IdeaProjects/hello/app/.cxx/Debug/v4k63494/armeabi-v7a/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-build	b63736a696d1e97c
+25610	25717	8011290089120793	imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-install	d16f00317c7a1bf1
+25610	25717	8011290089120793	C:/Users/lm_corr/IdeaProjects/hello/app/.cxx/Debug/v4k63494/armeabi-v7a/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-install	d16f00317c7a1bf1
+25717	25818	8011290090148952	imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-test	7b25366dffad161b
+25717	25818	8011290090148952	C:/Users/lm_corr/IdeaProjects/hello/app/.cxx/Debug/v4k63494/armeabi-v7a/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-test	7b25366dffad161b
+25819	25956	8011290091527783	CMakeFiles/imgui-populate-complete	4a8113c4efc8d9a8
+25819	25956	8011290091527783	imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-done	4a8113c4efc8d9a8
+25819	25956	8011290091527783	C:/Users/lm_corr/IdeaProjects/hello/app/.cxx/Debug/v4k63494/armeabi-v7a/_deps/imgui-subbuild/CMakeFiles/imgui-populate-complete	4a8113c4efc8d9a8
+25819	25956	8011290091527783	C:/Users/lm_corr/IdeaProjects/hello/app/.cxx/Debug/v4k63494/armeabi-v7a/_deps/imgui-subbuild/imgui-populate-prefix/src/imgui-populate-stamp/imgui-populate-done	4a8113c4efc8d9a8

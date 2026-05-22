@@ -1,0 +1,14 @@
+# ninja log v5
+101	900	8011290631914879	CMakeFiles/imgui_overlay.dir/_deps/imgui-src/backends/imgui_impl_opengl3.cpp.o	68b01bc89a1ead50
+71	2218	8011290645186280	CMakeFiles/imgui_overlay.dir/_deps/imgui-src/imgui_tables.cpp.o	b7599ec38d523da6
+87	2599	8011290648989194	CMakeFiles/imgui_overlay.dir/_deps/imgui-src/imgui_draw.cpp.o	149a8245e2ba634b
+41	3540	8011290658284228	CMakeFiles/imgui_overlay.dir/_deps/imgui-src/imgui_widgets.cpp.o	2adfe02e0b47ef08
+28	3630	8011290659336164	CMakeFiles/imgui_overlay.dir/native_imgui.cpp.o	9eece7a3c926b5d2
+1	4319	8011290666082281	CMakeFiles/imgui_overlay.dir/_deps/imgui-src/imgui.cpp.o	49836148ffe6f586
+4320	4588	8011290668818901	C:/Users/lm_corr/IdeaProjects/hello/app/build/intermediates/cxx/Debug/v4k63494/obj/armeabi-v7a/libimgui_overlay.so	c7a6c54a96e715c2
+10	1504	8011297102523603	CMakeFiles/imgui_overlay.dir/native_imgui.cpp.o	9eece7a3c926b5d2
+1506	1975	8011297106618794	C:/Users/lm_corr/IdeaProjects/hello/app/build/intermediates/cxx/Debug/v4k63494/obj/armeabi-v7a/libimgui_overlay.so	c7a6c54a96e715c2
+27	2736	8011308009242479	CMakeFiles/imgui_overlay.dir/native_imgui.cpp.o	9eece7a3c926b5d2
+2738	3208	8011308013755344	C:/Users/lm_corr/IdeaProjects/hello/app/build/intermediates/cxx/Debug/v4k63494/obj/armeabi-v7a/libimgui_overlay.so	c7a6c54a96e715c2
+20	2245	8011312631405044	CMakeFiles/imgui_overlay.dir/native_imgui.cpp.o	9eece7a3c926b5d2
+2247	2760	8011312636352624	C:/Users/lm_corr/IdeaProjects/hello/app/build/intermediates/cxx/Debug/v4k63494/obj/armeabi-v7a/libimgui_overlay.so	c7a6c54a96e715c2

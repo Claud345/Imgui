@@ -1,0 +1,38 @@
+{
+  "buildFiles": [
+    "C:\\Users\\lm_corr\\IdeaProjects\\hello\\app\\src\\main\\cpp\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "C:\\Users\\lm_corr\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+      "-C",
+      "C:\\Users\\lm_corr\\IdeaProjects\\hello\\app\\.cxx\\Debug\\v4k63494\\x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "C:\\Users\\lm_corr\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+    "-C",
+    "C:\\Users\\lm_corr\\IdeaProjects\\hello\\app\\.cxx\\Debug\\v4k63494\\x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "imgui_overlay::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "x86",
+      "artifactName": "imgui_overlay",
+      "output": "C:\\Users\\lm_corr\\IdeaProjects\\hello\\app\\build\\intermediates\\cxx\\Debug\\v4k63494\\obj\\x86\\libimgui_overlay.so",
+      "runtimeFiles": []
+    }
+  },
+  "toolchains": {
+    "toolchain": {
+      "cCompilerExecutable": "C:\\Users\\lm_corr\\AppData\\Local\\Android\\Sdk\\ndk\\30.0.14904198\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe",
+      "cppCompilerExecutable": "C:\\Users\\lm_corr\\AppData\\Local\\Android\\Sdk\\ndk\\30.0.14904198\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe"
+    }
+  },
+  "cFileExtensions": [],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}
