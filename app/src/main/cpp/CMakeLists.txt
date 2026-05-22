@@ -13,6 +13,21 @@ FetchContent_MakeAvailable(imgui)
 # Define native library source files
 add_library(imgui_overlay SHARED
     native_imgui.cpp
+    core/AppState.cpp
+    config/ConfigStorage.cpp
+    modules/FeatureFactory.cpp
+    modules/Modules.cpp
+    runtime/ImGuiRuntime.cpp
+    runtime/OverlayWindowManager.cpp
+    runtime/RecoveryManager.cpp
+    runtime/RuntimeState.cpp
+    screens/ScreenManager.cpp
+    screens/Screens.cpp
+    ui/DebugPanel.cpp
+    ui/DynamicMenuRenderer.cpp
+    ui/Theme.cpp
+    ui/ToastManager.cpp
+    ui/UIComponents.cpp
     ${imgui_SOURCE_DIR}/imgui.cpp
     ${imgui_SOURCE_DIR}/imgui_draw.cpp
     ${imgui_SOURCE_DIR}/imgui_widgets.cpp
@@ -22,6 +37,13 @@ add_library(imgui_overlay SHARED
 
 # Target include directories
 target_include_directories(imgui_overlay PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/core
+    ${CMAKE_CURRENT_SOURCE_DIR}/config
+    ${CMAKE_CURRENT_SOURCE_DIR}/modules
+    ${CMAKE_CURRENT_SOURCE_DIR}/runtime
+    ${CMAKE_CURRENT_SOURCE_DIR}/screens
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui
     ${imgui_SOURCE_DIR}
     ${imgui_SOURCE_DIR}/backends
 )

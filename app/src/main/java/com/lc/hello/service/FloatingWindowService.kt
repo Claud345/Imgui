@@ -6,12 +6,14 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ServiceInfo
+import android.content.res.Configuration
 import android.graphics.PixelFormat
 import android.opengl.GLSurfaceView
 import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
+import android.provider.Settings
 import android.text.InputType
 import android.view.Gravity
 import android.view.KeyEvent
@@ -40,6 +42,7 @@ class FloatingWindowService : Service() {
     private var dragStartY = 0
     private var screenWidth = 1080
     private var screenHeight = 2400
+    private lateinit var boundsManager: OverlayBoundsManager
 
     private companion object {
         const val CHANNEL_ID = "floating_window_channel"
@@ -57,10 +60,29 @@ class FloatingWindowService : Service() {
         val dm = resources.displayMetrics
         screenWidth = dm.widthPixels
         screenHeight = dm.heightPixels
+        boundsManager = OverlayBoundsManager(screenWidth, screenHeight)
         JniBridge.setScreenSize(screenWidth, screenHeight)
+        JniBridge.setConfigDirectory(File(filesDir, "configs").absolutePath)
+        updateOverlayRuntimeState(surfaceActive = false)
         setupForegroundNotification()
         prepareImGuiFonts()
         setupOverlay()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        val dm = resources.displayMetrics
+        screenWidth = dm.widthPixels
+        screenHeight = dm.heightPixels
+        boundsManager.updateScreen(screenWidth, screenHeight)
+        JniBridge.setScreenSize(screenWidth, screenHeight)
+        updateOverlayRuntimeState(surfaceActive = ::glSurfaceView.isInitialized && glSurfaceView.isAttachedToWindow)
+        if (::params.isInitialized && ::glSurfaceView.isInitialized && glSurfaceView.isAttachedToWindow) {
+            val desired = try { JniBridge.getDesiredWindowSize() } catch (_: Exception) { floatArrayOf(params.width.toFloat(), params.height.toFloat()) }
+            if (boundsManager.applyDesiredBounds(params, desired)) {
+                windowManager.updateViewLayout(glSurfaceView, params)
+            }
+        }
     }
 
     private fun setupForegroundNotification() {
@@ -114,9 +136,11 @@ class FloatingWindowService : Service() {
             WindowManager.LayoutParams.TYPE_PHONE
         }
 
-        val initialWidth = responsiveWidth(0.86f, 430, 590)
-        val initialHeight = responsiveHeight(0.44f, 560, 720)
+        val initialWidth = boundsManager.responsiveWidth(0.86f, 430, 590)
+        val initialHeight = boundsManager.responsiveHeight(0.44f, 560, 720)
 
+        // The overlay view is intentionally sized to the active ImGui window, not fullscreen.
+        // Android naturally passes touches outside this rectangle through to the app/game below.
         params = WindowManager.LayoutParams(
             initialWidth,
             initialHeight,
@@ -127,8 +151,8 @@ class FloatingWindowService : Service() {
             PixelFormat.TRANSLUCENT
         ).apply {
             gravity = Gravity.TOP or Gravity.START
-            x = ((screenWidth - initialWidth) * 0.5f).roundToInt().coerceAtLeast(0)
-            y = ((screenHeight - initialHeight) * 0.5f).roundToInt().coerceAtLeast(0)
+            x = boundsManager.centerX(initialWidth)
+            y = boundsManager.centerY(initialHeight)
         }
 
         glSurfaceView = TemplateGLSurfaceView(this).apply {
@@ -136,10 +160,12 @@ class FloatingWindowService : Service() {
             setEGLContextClientVersion(3)
             setRenderer(object : GLSurfaceView.Renderer {
                 override fun onSurfaceCreated(gl: GL10?, config: EGLConfig?) {
+                    updateOverlayRuntimeState(surfaceActive = true)
                     JniBridge.initImGui()
                 }
 
                 override fun onSurfaceChanged(gl: GL10?, width: Int, height: Int) {
+                    updateOverlayRuntimeState(surfaceActive = true)
                     JniBridge.resizeImGui(width, height)
                 }
 
@@ -172,8 +198,8 @@ class FloatingWindowService : Service() {
                         if (touchMode == TOUCH_DRAG) {
                             val dx = event.rawX - dragStartRawX
                             val dy = event.rawY - dragStartRawY
-                            params.x = (dragStartX + dx.roundToInt()).coerceIn(0, (screenWidth - params.width).coerceAtLeast(0))
-                            params.y = (dragStartY + dy.roundToInt()).coerceIn(0, (screenHeight - params.height).coerceAtLeast(0))
+                            params.x = boundsManager.clampX(dragStartX + dx.roundToInt(), params.width)
+                            params.y = boundsManager.clampY(dragStartY + dy.roundToInt(), params.height)
                             if (glSurfaceView.isAttachedToWindow) {
                                 windowManager.updateViewLayout(glSurfaceView, params)
                             }
@@ -202,38 +228,34 @@ class FloatingWindowService : Service() {
         }
 
         windowManager.addView(glSurfaceView, params)
+        updateOverlayRuntimeState(surfaceActive = true)
     }
 
-    private fun responsiveWidth(percent: Float, minValue: Int, maxValue: Int): Int {
-        val available = (screenWidth - 32).coerceAtLeast(320)
-        val desired = (screenWidth * percent).roundToInt().coerceIn(minValue, maxValue)
-        return desired.coerceAtMost(available)
-    }
-
-    private fun responsiveHeight(percent: Float, minValue: Int, maxValue: Int): Int {
-        val available = (screenHeight - 48).coerceAtLeast(420)
-        val desired = (screenHeight * percent).roundToInt().coerceIn(minValue, maxValue)
-        return desired.coerceAtMost(available)
+    private fun updateOverlayRuntimeState(surfaceActive: Boolean) {
+        val canDraw = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Settings.canDrawOverlays(this)
+        } else {
+            true
+        }
+        JniBridge.updateOverlayRuntimeState(
+            overlayPermission = canDraw,
+            drawOverApps = canDraw,
+            surfaceActive = surfaceActive,
+            appForeground = true,
+            width = screenWidth,
+            height = screenHeight
+        )
     }
 
     private fun syncActiveWindowBounds() {
         if (touchMode == TOUCH_DRAG || !::glSurfaceView.isInitialized || !glSurfaceView.isAttachedToWindow) return
         val desired = try { JniBridge.getDesiredWindowSize() } catch (_: Exception) { return }
-        if (desired.size < 2) return
-
-        val nextW = desired[0].roundToInt().coerceIn(1, screenWidth)
-        val nextH = desired[1].roundToInt().coerceIn(1, screenHeight)
-        val nextX = params.x.coerceIn(0, (screenWidth - nextW).coerceAtLeast(0))
-        val nextY = params.y.coerceIn(0, (screenHeight - nextH).coerceAtLeast(0))
-        if (params.width == nextW && params.height == nextH && params.x == nextX && params.y == nextY) return
 
         mainHandler.post {
             if (!glSurfaceView.isAttachedToWindow) return@post
-            params.width = nextW
-            params.height = nextH
-            params.x = nextX
-            params.y = nextY
-            windowManager.updateViewLayout(glSurfaceView, params)
+            if (boundsManager.applyDesiredBounds(params, desired)) {
+                windowManager.updateViewLayout(glSurfaceView, params)
+            }
         }
     }
 
@@ -271,6 +293,7 @@ class FloatingWindowService : Service() {
     }
 
     override fun onDestroy() {
+        updateOverlayRuntimeState(surfaceActive = false)
         if (::glSurfaceView.isInitialized && glSurfaceView.isAttachedToWindow) {
             windowManager.removeView(glSurfaceView)
         }

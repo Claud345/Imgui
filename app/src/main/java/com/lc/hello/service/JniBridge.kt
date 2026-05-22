@@ -6,6 +6,15 @@ object JniBridge {
     }
 
     external fun setFontPaths(bodyPath: String, headingPath: String)
+    external fun setConfigDirectory(path: String)
+    external fun updateOverlayRuntimeState(
+        overlayPermission: Boolean,
+        drawOverApps: Boolean,
+        surfaceActive: Boolean,
+        appForeground: Boolean,
+        width: Int,
+        height: Int
+    )
     external fun setScreenSize(width: Int, height: Int)
     external fun initImGui()
     external fun resizeImGui(width: Int, height: Int)
