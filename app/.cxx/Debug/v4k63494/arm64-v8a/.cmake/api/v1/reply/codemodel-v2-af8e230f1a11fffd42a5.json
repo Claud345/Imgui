@@ -6,6 +6,10 @@
 			[
 				{
 					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
 					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
 					{
@@ -17,12 +21,27 @@
 					[
 						0
 					]
+				},
+				{
+					"build" : "_deps/nlohmann_json-build",
+					"jsonFile" : "directory-_deps.nlohmann_json-build-Debug-cfb0e0e9319745ac4bc5.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "C:/Users/lm_corr/IdeaProjects/hello/app/.cxx/Debug/v4k63494/arm64-v8a/_deps/nlohmann_json-src"
 				}
 			],
 			"name" : "Debug",
 			"projects" : 
 			[
 				{
+					"childIndexes" : 
+					[
+						1
+					],
 					"directoryIndexes" : 
 					[
 						0
@@ -32,6 +51,14 @@
 					[
 						0
 					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1
+					],
+					"name" : "nlohmann_json",
+					"parentIndex" : 0
 				}
 			],
 			"targets" : 
@@ -39,7 +66,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "imgui_overlay::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-imgui_overlay-Debug-0b9445a37761c09b9f21.json",
+					"jsonFile" : "target-imgui_overlay-Debug-78d931dbc533b9ed239d.json",
 					"name" : "imgui_overlay",
 					"projectIndex" : 0
 				}
